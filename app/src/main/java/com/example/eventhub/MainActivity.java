@@ -1,8 +1,8 @@
 package com.example.eventhub;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,6 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
+    private EditText etEmail, etContraseña;
+    private Button btnIniciarSesion;
+
     private FirebaseAuth mAuth;
 
     @Override
@@ -25,36 +28,39 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        EditText emailEditText = findViewById(R.id.txtEmail);
-        EditText passwordEditText = findViewById(R.id.txtPassword);
+        etEmail = findViewById(R.id.txtEmail);
+        etContraseña = findViewById(R.id.txtPassword);
+        btnIniciarSesion = findViewById(R.id.btnLogin);
 
-        String email = emailEditText.getText().toString();
-        String password = passwordEditText.getText().toString();
+        btnIniciarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = etEmail.getText().toString();
+                String contraseña = etContraseña.getText().toString();
 
-        // Llama al método iniciarSesion con los valores de correo electrónico y contraseña
-        iniciarSesion(email, password);
+                if(email.isEmpty() || contraseña.isEmpty()) {
+                    Toast.makeText(MainActivity.this, "Por favor, introduce tu correo electrónico y contraseña.", Toast.LENGTH_SHORT).show();
+                } else {
+                    iniciarSesion(email, contraseña);
+                }
+            }
+        });
     }
 
-    private void iniciarSesion(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
+    private void iniciarSesion(String email, String contraseña) {
+        mAuth.signInWithEmailAndPassword(email, contraseña)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Inicio de sesión exitoso
-                            Toast.makeText(MainActivity.this, "Inicio de sesión exitoso",
+                            Toast.makeText(MainActivity.this, "Inicio de sesión exitoso.",
                                     Toast.LENGTH_SHORT).show();
-                            // Aquí puedes redirigir a la siguiente actividad
+
                         } else {
-                            // Fallo en el inicio de sesión
-                            Toast.makeText(MainActivity.this, "Fallo en el inicio de sesión",
+                            Toast.makeText(MainActivity.this, "Fallo en el inicio de sesión.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
-
-    public void registrar(View view) {
-        // Aquí puedes implementar la lógica para registrar nuevos usuarios
     }
 }
