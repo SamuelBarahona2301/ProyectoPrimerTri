@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="55dp">
+            android:padding="65dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -76,7 +76,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/done_icon"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                android:id="@+id/txtEmail"/>
 
             <View
                 android:layout_width="wrap_content"
@@ -93,18 +94,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/password_icon"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:id="@+id/txtPassword"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:text="Aceptar términos y condiciones" />
 
                 <TextView
                     android:layout_width="wrap_content"

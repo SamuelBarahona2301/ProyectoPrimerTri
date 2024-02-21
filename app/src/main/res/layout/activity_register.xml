@@ -47,8 +47,29 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/txtEmail"
+            android:id="@+id/txtApellidos"
             android:layout_below="@id/editName"
+            android:text="Apellidos"
+            android:padding="6dp"
+            android:textColor="@color/register_txtView"
+            android:textSize="16sp"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editApellidos"
+            android:inputType="textPersonName"
+            android:textSize="16sp"
+            android:padding="6dp"
+            android:layout_below="@id/txtApellidos"
+            android:background="@drawable/border"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/txtEmail"
+            android:layout_below="@id/editApellidos"
             android:text="Mail"
             android:padding="6dp"
             android:textColor="@color/register_txtView"
@@ -91,7 +112,7 @@
             android:layout_height="match_parent"
             android:id="@+id/txtNickName"
             android:layout_below="@id/editFechaNacimiento"
-            android:text="Fecha de nacimiento"
+            android:text="Nombre de usuario"
             android:textColor="@color/register_txtView"
             android:padding="6dp"
             android:textSize="16sp"
@@ -210,7 +231,7 @@
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
             android:layout_below="@id/editPasswordRepeat"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:text="Registrarse"/>
 
         <ProgressBar
