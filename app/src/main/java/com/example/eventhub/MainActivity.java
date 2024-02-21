@@ -24,15 +24,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-    }
 
-    public void iniciarSesion(View view) {
         EditText emailEditText = findViewById(R.id.txtEmail);
         EditText passwordEditText = findViewById(R.id.txtPassword);
 
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
+        // Llama al método iniciarSesion con los valores de correo electrónico y contraseña
+        iniciarSesion(email, password);
+    }
+
+    private void iniciarSesion(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

@@ -3,6 +3,7 @@ package com.example.eventhub;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.EditText;
 
 public class RegisterActivity extends AppCompatActivity {
 
