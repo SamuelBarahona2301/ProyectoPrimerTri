@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LoginActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,26 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="2dp"
             android:layout_marginBottom="47dp"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="28dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/location_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Eventhub"
-                android:textColor="@color/white"
-                android:textSize="32dp"
-                android:textStyle="bold" />
-
+                android:id="@+id/imageView5"
+                android:layout_width="267dp"
+                android:layout_height="203dp"
+                android:maxWidth="50dp"
+                app:srcCompat="@drawable/logoeventhub" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -125,7 +117,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Registrarse"
-                app:cornerRadius="32dp" />
+                app:cornerRadius="32dp"
+                android:id="@+id/btnRegister"
+                android:onClick="cambiarVista"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

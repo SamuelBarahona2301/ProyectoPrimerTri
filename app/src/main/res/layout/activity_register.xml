@@ -70,7 +70,7 @@
             android:layout_height="match_parent"
             android:id="@+id/txtEmail"
             android:layout_below="@id/editApellidos"
-            android:text="Mail"
+            android:text="@string/nombreCorreo"
             android:padding="6dp"
             android:textColor="@color/register_txtView"
             android:textSize="16sp"
@@ -190,7 +190,7 @@
             android:layout_height="match_parent"
             android:id="@+id/txtPassword"
             android:layout_below="@id/editTelefono"
-            android:text="Contraseña"
+            android:text="@string/nombreContraseña"
             android:padding="6dp"
             android:textSize="16sp"
             android:layout_marginTop="10dp"/>
