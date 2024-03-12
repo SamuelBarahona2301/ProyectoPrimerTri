@@ -35,11 +35,13 @@ import com.google.firebase.database.core.Tag;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText editNombre, editNickName, editFechaNac, editTelefono, editApellidos,
+    private EditText editNombre, editFechaNac, editApellidos,
                     editRol, editPassword, editPasswordRepeat, editMail;
     private ProgressBar progressBar;
     private RadioGroup radioGroupRol;
@@ -47,20 +49,24 @@ public class RegisterActivity extends AppCompatActivity {
 
     private DatePickerDialog picker;
 
+    FirebaseAuth auth;
+    DatabaseReference databaseReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        auth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
         progressBar = findViewById(R.id.progrssBar);
         editNombre = findViewById(R.id.editName);
         editApellidos = findViewById(R.id.editApellidos);
         editFechaNac = findViewById(R.id.editFechaNacimiento);
-        editNickName = findViewById(R.id.editNickName);
         editPassword = findViewById(R.id.editPassword);
         editPasswordRepeat = findViewById(R.id.editPasswordRepeat);
-        editTelefono = findViewById(R.id.editTelefono);
         editMail = findViewById(R.id.editEmail);
 
 
@@ -97,10 +103,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String txtApellidos = editApellidos.getText().toString();
                 String txtFechaNac = editFechaNac.getText().toString();
                 String txtMail = editMail.getText().toString();
-                String txtNickName = editNickName.getText().toString();
                 String txtPassword = editPassword.getText().toString();
                 String txtPasswordRepeat = editPasswordRepeat.getText().toString();
-                String txtTelefono = editTelefono.getText().toString();
                 String txtRol;
 
 
@@ -128,18 +132,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Selecciona el rol correspondiente", Toast.LENGTH_LONG).show();
                     editRol.setError("Rol necesario");
                     editRol.requestFocus();
-                } else if (TextUtils.isEmpty(txtTelefono)) {
-                    Toast.makeText(RegisterActivity.this, "Completa el numero de telefono", Toast.LENGTH_LONG).show();
-                    editTelefono.setError("Es necesario el numero de telefono");
-                    editTelefono.requestFocus();
-                } else if (txtTelefono.length() != 9) {
-                    Toast.makeText(RegisterActivity.this, "Vuelve a ingresar el numero de telefono", Toast.LENGTH_LONG).show();
-                    editTelefono.setError("Numero de telefono incorrecto. Debe tener 9 digitos");
-                    editTelefono.requestFocus();
-                }else if (!verificarTelefono(txtTelefono)) {
-                    Toast.makeText(RegisterActivity.this, "Vuelve a ingresar el numero de telefono", Toast.LENGTH_LONG).show();
-                    editTelefono.setError("Numero de telefono no valido.");
-                    editTelefono.requestFocus();
                 }else if (TextUtils.isEmpty(txtPassword)) {
                     Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("Es necesario la contraseña");
@@ -163,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity {
                     txtRol = radioButtonRol.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
 
-                    registrarUsuario(txtNombre, txtApellidos, txtMail, txtFechaNac, txtRol, txtTelefono, txtNickName, txtPassword);
+                    registrarUsuario(txtNombre, txtApellidos, txtMail, txtFechaNac, txtRol, txtPassword);
                 }
             }
         });
@@ -171,39 +163,35 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registrarUsuario(String txtNombre, String txtApellidos, String txtMail, String txtFechaNac,
-                                  String txtRol, String txtTelefono, String txtNickName, String txtPassword) {
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+                                  String txtRol, String txtPassword) {
+
         auth.createUserWithEmailAndPassword(txtMail, txtPassword).addOnCompleteListener(RegisterActivity.this,
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this, "Registrado correctamente", Toast.LENGTH_LONG).show();
-                            FirebaseUser firebaseUser = auth.getCurrentUser();
+                            Map<String, Object> map = new HashMap<>();
+                            map.put("nombre" , txtNombre);
+                            map.put("apellidos" , txtApellidos);
+                            map.put("mail" , txtMail);
+                            map.put("fechaNac" , txtFechaNac);
+                            map.put("rol" , txtRol);
+                            map.put("password" , txtPassword);
 
-                            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(txtNombre).build();
-                            firebaseUser.updateProfile(profileChangeRequest);
+                            String id = auth.getCurrentUser().getUid();
 
-                            Usuario usuario = new Usuario(txtNombre, txtApellidos, txtTelefono, txtRol, txtFechaNac, txtNickName);
-
-                            DatabaseReference referenceUsuario = FirebaseDatabase.getInstance().getReference("Registrar usuarios");
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                    | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(intent);
-                            finish();
-                            referenceUsuario.child(firebaseUser.getUid()).setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            databaseReference.child("usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_LONG).show();
-
-                                    }else {
-                                        Toast.makeText(RegisterActivity.this, "Registro incorrecto. Intentalo de nuevo", Toast.LENGTH_LONG).show();
+                                public void onComplete(@NonNull Task<Void> task2) {
+                                    if(task2.isSuccessful()){
+                                        Toast.makeText(RegisterActivity.this,"usuario registrado correctamente",Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
                                     }
-                                    progressBar.setVisibility(View.GONE);
                                 }
                             });
+
 
                         }else {
                             try {
@@ -215,15 +203,9 @@ public class RegisterActivity extends AppCompatActivity {
                                 Log.e(TAG, e.getMessage());
                                 Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
-                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
     }
 
-    public static boolean verificarTelefono(String numeroTelefono) {
-        String numero = "^[6789]\\d{8}$";
-
-        return Pattern.matches(numero, numeroTelefono);
-    }
 }
