@@ -111,29 +111,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/txtNickName"
-            android:layout_below="@id/editFechaNacimiento"
-            android:text="Nombre de usuario"
-            android:textColor="@color/register_txtView"
-            android:padding="6dp"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editNickName"
-            android:inputType="textPersonName"
-            android:textSize="16sp"
-            android:padding="6dp"
-            android:layout_below="@id/txtNickName"
-            android:background="@drawable/border"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/txtRol"
-            android:layout_below="@id/editNickName"
+            android:layout_below="@id/editFechaNacimiento"
             android:text="Tipo de usuario"
             android:padding="6dp"
             android:textColor="@color/register_txtView"
@@ -168,29 +147,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/txtTelefono"
-            android:layout_below="@id/rdbtnRol"
-            android:text="Número de teléfono"
-            android:textColor="@color/register_txtView"
-            android:padding="6dp"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editTelefono"
-            android:inputType="phone"
-            android:textSize="16sp"
-            android:padding="6dp"
-            android:layout_below="@id/txtTelefono"
-            android:background="@drawable/border"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/txtPassword"
-            android:layout_below="@id/editTelefono"
+            android:layout_below="@id/rdbtnRol"
             android:text="@string/nombreContraseña"
             android:padding="6dp"
             android:textSize="16sp"
