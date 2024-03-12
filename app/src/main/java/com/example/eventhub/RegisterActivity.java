@@ -100,7 +100,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String txtPassword = editPassword.getText().toString();
                 String txtPasswordRepeat = editPasswordRepeat.getText().toString();
                 String txtTelefono = editTelefono.getText().toString();
-                String txtDni = "12345678B";
                 String txtRol;
 
 
@@ -163,7 +162,7 @@ public class RegisterActivity extends AppCompatActivity {
                     txtRol = radioButtonRol.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
 
-                    registrarUsuario(txtNombre, txtApellidos, txtMail, txtFechaNac, txtRol, txtTelefono, txtNickName, txtPassword, txtDni);
+                    registrarUsuario(txtNombre, txtApellidos, txtMail, txtFechaNac, txtRol, txtTelefono, txtNickName, txtPassword);
                 }
             }
         });
@@ -171,7 +170,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registrarUsuario(String txtNombre, String txtApellidos, String txtMail, String txtFechaNac,
-                                  String txtRol, String txtTelefono, String txtNickName, String txtPassword, String txtDni) {
+                                  String txtRol, String txtTelefono, String txtNickName, String txtPassword) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(txtMail, txtPassword).addOnCompleteListener(RegisterActivity.this,
                 new OnCompleteListener<AuthResult>() {
