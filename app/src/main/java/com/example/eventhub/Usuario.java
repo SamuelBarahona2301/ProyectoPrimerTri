@@ -1,14 +1,12 @@
 package com.example.eventhub;
 
 public class Usuario {
-    public static String nombre, apellidos, telefono, rol, fechaNac, nickname;
+    public static String nombre, apellidos, rol, fechaNac;
 
-    public Usuario(String nombre, String apellidos, String telefono, String rol, String fechaNac, String nickname) {
+    public Usuario(String nombre, String apellidos, String rol, String fechaNac) {
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.telefono = telefono;
         this.rol = rol;
         this.fechaNac = fechaNac;
-        this.nickname = nickname;
     }
 }
