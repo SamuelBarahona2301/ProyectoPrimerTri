@@ -101,6 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editFechaNacimiento"
+            android:focusable="false"
             android:inputType="date"
             android:textSize="16sp"
             android:padding="6dp"
@@ -122,7 +123,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editNickName"
-            android:inputType="date"
+            android:inputType="textPersonName"
             android:textSize="16sp"
             android:padding="6dp"
             android:layout_below="@id/txtNickName"
@@ -231,6 +232,7 @@
             android:layout_marginLeft="70dp"
             android:layout_marginRight="70dp"
             android:layout_below="@id/editPasswordRepeat"
+            android:id="@+id/btnRegistrar"
             android:layout_marginTop="40dp"
             android:text="Registrarse"/>
 

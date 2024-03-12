@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent resgisterPage = new Intent(getApplicationContext(), RegisterActivity.class);
+                Intent resgisterPage = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(resgisterPage);
             }
         });
