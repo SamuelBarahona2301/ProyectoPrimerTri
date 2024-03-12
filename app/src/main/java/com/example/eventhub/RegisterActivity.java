@@ -3,6 +3,7 @@ package com.example.eventhub;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -29,6 +30,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Tag;
@@ -40,6 +42,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    Usuario usuario;
 
     private EditText editNombre, editFechaNac, editApellidos,
                     editRol, editPassword, editPasswordRepeat, editMail;
@@ -170,29 +174,27 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Map<String, Object> map = new HashMap<>();
-                            map.put("nombre" , txtNombre);
-                            map.put("apellidos" , txtApellidos);
-                            map.put("mail" , txtMail);
-                            map.put("fechaNac" , txtFechaNac);
-                            map.put("rol" , txtRol);
-                            map.put("password" , txtPassword);
+                            String id = databaseReference.push().getKey();
 
-                            String id = auth.getCurrentUser().getUid();
+                            usuario = new Usuario();
+                            usuario.setId(id);
+                            usuario.setNombre(txtNombre);
+                            usuario.setApellidos(txtApellidos);
+                            usuario.setFechaNac(txtFechaNac);
+                            usuario.setRol(txtRol);
 
-                            databaseReference.child("usuarios").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            databaseReference.child(String.valueOf(id)).setValue(usuario, new DatabaseReference.CompletionListener() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task2) {
-                                    if(task2.isSuccessful()){
-                                        Toast.makeText(RegisterActivity.this,"usuario registrado correctamente",Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        startActivity(intent);
-                                        finish();
+                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                    if (error == null) {
+                                        // Éxito
+                                        Toast.makeText(RegisterActivity.this, "Coche agregado exitosamente", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        // Error
+                                        Toast.makeText(RegisterActivity.this, "Error al agregar el coche", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
-
-
                         }else {
                             try {
                                 throw task.getException();
