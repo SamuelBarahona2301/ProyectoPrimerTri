@@ -62,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
         editPasswordRepeat = findViewById(R.id.editPasswordRepeat);
         editMail = findViewById(R.id.editEmail);
 
+
         // Radiobutton
         radioGroupRol = findViewById(R.id.rdbtnRol);
         radioGroupRol.clearCheck();
