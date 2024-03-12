@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText editNombre, editNickName, editFechaNac, editTelefono, editDni, editApellidos,
+    private EditText editNombre, editNickName, editFechaNac, editTelefono, editApellidos,
                     editRol, editPassword, editPasswordRepeat, editMail;
     private ProgressBar progressBar;
     private RadioGroup radioGroupRol;
