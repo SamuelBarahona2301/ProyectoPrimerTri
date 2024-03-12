@@ -47,6 +47,8 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioGroup radioGroupRol;
     private RadioButton radioButtonRol;
 
+    private String txtNombre, txtFechaNac, txtApellidos, txtRol, txtPassword, txtPasswordRepeat, txtMail;
+
     private DatePickerDialog picker;
 
     FirebaseAuth auth;
@@ -99,13 +101,12 @@ public class RegisterActivity extends AppCompatActivity {
                 int seleccionar = radioGroupRol.getCheckedRadioButtonId();
                 radioButtonRol = findViewById(seleccionar);
 
-                String txtNombre = editNombre.getText().toString();
-                String txtApellidos = editApellidos.getText().toString();
-                String txtFechaNac = editFechaNac.getText().toString();
-                String txtMail = editMail.getText().toString();
-                String txtPassword = editPassword.getText().toString();
-                String txtPasswordRepeat = editPasswordRepeat.getText().toString();
-                String txtRol;
+                txtNombre = editNombre.getText().toString();
+                txtApellidos = editApellidos.getText().toString();
+                txtFechaNac = editFechaNac.getText().toString();
+                txtMail = editMail.getText().toString();
+                txtPassword = editPassword.getText().toString();
+                txtPasswordRepeat = editPasswordRepeat.getText().toString();
 
 
                 if (TextUtils.isEmpty(txtNombre)){
@@ -155,15 +156,14 @@ public class RegisterActivity extends AppCompatActivity {
                     txtRol = radioButtonRol.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
 
-                    registrarUsuario(txtNombre, txtApellidos, txtMail, txtFechaNac, txtRol, txtPassword);
+                    registrarUsuario();
                 }
             }
         });
 
     }
 
-    private void registrarUsuario(String txtNombre, String txtApellidos, String txtMail, String txtFechaNac,
-                                  String txtRol, String txtPassword) {
+    private void registrarUsuario() {
 
         auth.createUserWithEmailAndPassword(txtMail, txtPassword).addOnCompleteListener(RegisterActivity.this,
                 new OnCompleteListener<AuthResult>() {
