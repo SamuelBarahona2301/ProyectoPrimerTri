@@ -4,4 +4,5 @@
     <string name="tituloLogin">Inicio de sesion</string>
     <string name="nombreContraseña">Contraseña</string>
     <string name="nombreCorreo">Mail</string>
+    <string name="tengoCuenta">Ya tengo cuenta</string>
 </resources>

@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -61,6 +62,8 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth auth;
     DatabaseReference databaseReference;
 
+    TextView tengoCuenta;
+
     ProgressDialog progressDialog;
 
     @Override
@@ -83,11 +86,20 @@ public class RegisterActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         editPasswordRepeat = findViewById(R.id.editPasswordRepeat);
         editMail = findViewById(R.id.editEmail);
+        tengoCuenta = findViewById(R.id.txtTengoCuenta);
 
 
         // Radiobutton
         radioGroupRol = findViewById(R.id.rdbtnRol);
         radioGroupRol.clearCheck();
+
+        tengoCuenta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
 
         editFechaNac.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,8 +240,6 @@ public class RegisterActivity extends AppCompatActivity {
 
                     }
                 });
-
-
     }
 
 }

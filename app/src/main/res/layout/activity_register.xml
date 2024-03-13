@@ -194,6 +194,17 @@
             android:layout_marginTop="40dp"
             android:text="Registrarse"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/txtTengoCuenta"
+            android:layout_below="@id/btnRegistrar"
+            android:text="@string/tengoCuenta"
+            android:padding="6dp"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"/>
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
