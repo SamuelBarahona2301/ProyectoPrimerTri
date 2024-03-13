@@ -206,6 +206,7 @@ public class RegisterActivity extends AppCompatActivity {
         Datos.put("apellidos", txtApellidos);
         Datos.put("password", txtPassword);
         Datos.put("rol", txtRol);
+        Datos.put("fecNacimiento" , txtFechaNac);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Usuarios");
         databaseReference.child(uid)
