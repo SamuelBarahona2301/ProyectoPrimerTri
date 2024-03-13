@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -22,6 +23,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
@@ -58,6 +61,8 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth auth;
     DatabaseReference databaseReference;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +71,9 @@ public class RegisterActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         databaseReference = database.getReference("usuarios");
+        progressDialog = new ProgressDialog(RegisterActivity.this);
+        progressDialog.setTitle("Espere por favor");
+        progressDialog.setCanceledOnTouchOutside(false);
 
 
         progressBar = findViewById(R.id.progrssBar);
@@ -114,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                 txtPasswordRepeat = editPasswordRepeat.getText().toString();
 
 
-                if (TextUtils.isEmpty(txtNombre)){
+                if (TextUtils.isEmpty(txtNombre)) {
                     Toast.makeText(RegisterActivity.this, "Completa el nombre", Toast.LENGTH_LONG).show();
                     editNombre.setError("Se requiere el nombre");
                     editNombre.requestFocus();
@@ -126,7 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Completa el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren el email");
                     editMail.requestFocus();
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(txtMail).matches()){
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(txtMail).matches()) {
                     Toast.makeText(RegisterActivity.this, "Vuelve a ingresar el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren email correcto");
                     editMail.requestFocus();
@@ -138,7 +146,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Selecciona el rol correspondiente", Toast.LENGTH_LONG).show();
                     editRol.setError("Rol necesario");
                     editRol.requestFocus();
-                }else if (TextUtils.isEmpty(txtPassword)) {
+                } else if (TextUtils.isEmpty(txtPassword)) {
                     Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("Es necesario la contraseña");
                     editPassword.requestFocus();
@@ -157,7 +165,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     editPassword.clearComposingText();
                     editPasswordRepeat.clearComposingText();
-                }else {
+                } else {
                     txtRol = radioButtonRol.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -170,45 +178,58 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void registrarUsuario() {
 
-        auth.createUserWithEmailAndPassword(txtMail, txtPassword).addOnCompleteListener(RegisterActivity.this,
-                new OnCompleteListener<AuthResult>() {
+        auth.createUserWithEmailAndPassword(txtMail, txtPassword).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                //
+                GuardarInformacion();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(RegisterActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void GuardarInformacion() {
+        progressDialog.setMessage("Guandando su informacion");
+        progressDialog.dismiss();
+
+        String uid = auth.getUid();
+
+        HashMap<String, String> Datos = new HashMap<>();
+        Datos.put("uid", uid);
+        Datos.put("correo", txtMail);
+        Datos.put("nombre", txtNombre);
+        Datos.put("apellidos", txtApellidos);
+        Datos.put("password", txtPassword);
+        Datos.put("rol", txtRol);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Usuarios");
+        databaseReference.child(uid)
+                .setValue(Datos)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            String userId = auth.getCurrentUser().getUid();
+                    public void onSuccess(Void unused) {
+                        progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, "Cuenta creada exitosamente", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        finish();
 
-                            usuario = new Usuario();
-                            usuario.setId(userId);
-                            usuario.setNombre(txtNombre);
-                            usuario.setApellidos(txtApellidos);
-                            usuario.setFechaNac(txtFechaNac);
-                            usuario.setRol(txtRol);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(RegisterActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
 
-                            databaseReference.child(userId).setValue(usuario, new DatabaseReference.CompletionListener() {
-                                @Override
-                                public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                    if (error == null) {
-                                        // Éxito
-                                        Toast.makeText(RegisterActivity.this, "Usuario registrado exitosamente", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        // Error
-                                        Toast.makeText(RegisterActivity.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        }else {
-                            try {
-                                throw task.getException();
-                            }catch (FirebaseAuthUserCollisionException e){
-                                editMail.setError("El email ya se encuentra registrado");
-                                editMail.requestFocus();
-                            } catch (Exception e) {
-                                Log.e(TAG, e.getMessage());
-                                Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                            }
-                        }
                     }
                 });
+
+
     }
 
 }
+;
