@@ -1,5 +1,6 @@
 package com.example.eventhub;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -28,10 +29,11 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    TextView textViewFirstName, textViewLastName, textViewDOB, textViewPassword, textCorreo;
+    TextView textViewFirstName, textViewLastName, textViewDOB, textViewPassword, textCorreo, textRol;
 
     DatabaseReference Usuarios;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
         textCorreo = findViewById(R.id.textCorreo);
         textViewDOB = findViewById(R.id.textViewDOB);
         textViewPassword = findViewById(R.id.textViewPassword);
+        textRol = findViewById(R.id.textRole);
 
         Usuarios = FirebaseDatabase.getInstance().getReference("Usuarios");
         buttonLogout = findViewById(R.id.buttonLogout);
@@ -51,7 +54,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cerrarSesion();
-
             }
         });
 
@@ -82,12 +84,14 @@ public class ProfileActivity extends AppCompatActivity {
                     String correo = "Correo: " + snapshot.child("correo").getValue();
                     String apellidos = "Apellidos: " + snapshot.child("apellidos").getValue();
                     String fecNac = "Fecha de Nacimiento: " + snapshot.child("fecNacimiento").getValue();
+                    String rol = "Rol: " + snapshot.child("rol").getValue();
                     String password = "Password: " + snapshot.child("password").getValue();
 
                     textViewFirstName.setText(nombres);
                     textViewLastName.setText(apellidos);
                     textCorreo.setText(correo);
                     textViewDOB.setText(fecNac);
+                    textRol.setText(rol);
                     textViewPassword.setText(password);
 
                 }

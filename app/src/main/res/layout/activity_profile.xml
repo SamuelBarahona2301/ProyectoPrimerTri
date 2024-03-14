@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
-        <!-- Encabezado -->
+
         <TextView
             android:id="@+id/textViewHeader"
             android:layout_width="match_parent"
@@ -18,7 +18,6 @@
             android:background="#FF4081"
             android:textColor="#FFFFFF"/>
 
-        <!-- Contenedor principal -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="421dp"
@@ -26,7 +25,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Nombre -->
             <TextView
                 android:id="@+id/textViewFirstName"
                 android:layout_width="match_parent"
@@ -35,7 +33,6 @@
                 android:text="Nombre:"
                 android:textSize="18sp" />
 
-            <!-- Apellidos -->
             <TextView
                 android:id="@+id/textViewLastName"
                 android:layout_width="match_parent"
@@ -43,7 +40,7 @@
                 android:paddingBottom="8dp"
                 android:text="Apellidos:"
                 android:textSize="18sp" />
-            <!-- Apellidos -->
+
             <TextView
                 android:id="@+id/textCorreo"
                 android:layout_width="match_parent"
@@ -52,8 +49,6 @@
                 android:text="Correo:"
                 android:textSize="18sp" />
 
-
-            <!-- Fecha de nacimiento -->
             <TextView
                 android:id="@+id/textViewDOB"
                 android:layout_width="match_parent"
@@ -62,7 +57,6 @@
                 android:text="Fecha de nacimiento:"
                 android:textSize="18sp" />
 
-            <!-- Contraseña -->
             <TextView
                 android:id="@+id/textRole"
                 android:layout_width="match_parent"
@@ -79,7 +73,6 @@
                 android:text="Contraseña:"
                 android:textSize="18sp" />
 
-            <!-- Botón para editar perfil -->
             <Button
                 android:id="@+id/buttonEditProfile"
                 android:layout_width="match_parent"
@@ -89,7 +82,6 @@
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
-            <!-- Botón para cerrar sesión -->
             <Button
                 android:id="@+id/buttonLogout"
                 android:layout_width="match_parent"
