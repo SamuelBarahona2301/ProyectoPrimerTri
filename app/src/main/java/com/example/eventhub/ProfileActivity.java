@@ -28,7 +28,7 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    TextView textViewFirstName, textViewLastName, textViewDOB, textViewRole, textViewPassword, textCorreo;
+    TextView textViewFirstName, textViewLastName, textViewDOB, textViewPassword, textCorreo;
 
     DatabaseReference Usuarios;
 
@@ -41,7 +41,6 @@ public class ProfileActivity extends AppCompatActivity {
         textViewLastName = findViewById(R.id.textViewLastName);
         textCorreo = findViewById(R.id.textCorreo);
         textViewDOB = findViewById(R.id.textViewDOB);
-        textViewRole = findViewById(R.id.textViewRole);
         textViewPassword = findViewById(R.id.textViewPassword);
 
         Usuarios = FirebaseDatabase.getInstance().getReference("Usuarios");
@@ -51,7 +50,6 @@ public class ProfileActivity extends AppCompatActivity {
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 cerrarSesion();
 
             }
@@ -85,13 +83,11 @@ public class ProfileActivity extends AppCompatActivity {
                     String apellidos = "Apellidos: " + snapshot.child("apellidos").getValue();
                     String fecNac = "Fecha de Nacimiento: " + snapshot.child("fecNacimiento").getValue();
                     String password = "Password: " + snapshot.child("password").getValue();
-                    String rol = "Rol: " + snapshot.child("rol").getValue();
 
                     textViewFirstName.setText(nombres);
                     textViewLastName.setText(apellidos);
                     textCorreo.setText(correo);
                     textViewDOB.setText(fecNac);
-                    textViewRole.setText(rol);
                     textViewPassword.setText(password);
 
                 }

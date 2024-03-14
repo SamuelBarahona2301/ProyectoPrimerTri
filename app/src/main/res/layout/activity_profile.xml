@@ -70,15 +70,6 @@
                 android:text="Fecha de nacimiento:"
                 android:textSize="18sp" />
 
-            <!-- Rol -->
-            <TextView
-                android:id="@+id/textViewRole"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="8dp"
-                android:text="Rol:"
-                android:textSize="18sp" />
-
             <!-- Contraseña -->
             <TextView
                 android:id="@+id/textViewPassword"

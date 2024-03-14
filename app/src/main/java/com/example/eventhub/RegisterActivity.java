@@ -50,12 +50,10 @@ public class RegisterActivity extends AppCompatActivity {
     Usuario usuario;
 
     private EditText editNombre, editFechaNac, editApellidos,
-            editRol, editPassword, editPasswordRepeat, editMail;
+            editPassword, editPasswordRepeat, editMail;
     private ProgressBar progressBar;
-    private RadioGroup radioGroupRol;
-    private RadioButton radioButtonRol;
 
-    private String txtNombre, txtFechaNac, txtApellidos, txtRol, txtPassword, txtPasswordRepeat, txtMail;
+    private String txtNombre, txtFechaNac, txtApellidos, txtPassword, txtPasswordRepeat, txtMail;
 
     private DatePickerDialog picker;
 
@@ -89,10 +87,6 @@ public class RegisterActivity extends AppCompatActivity {
         tengoCuenta = findViewById(R.id.txtTengoCuenta);
 
 
-        // Radiobutton
-        radioGroupRol = findViewById(R.id.rdbtnRol);
-        radioGroupRol.clearCheck();
-
         tengoCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +117,6 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int seleccionar = radioGroupRol.getCheckedRadioButtonId();
-                radioButtonRol = findViewById(seleccionar);
 
                 txtNombre = editNombre.getText().toString();
                 txtApellidos = editApellidos.getText().toString();
@@ -154,10 +146,6 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Completa el fecha de nacimiento", Toast.LENGTH_LONG).show();
                     editFechaNac.setError("Fecha de nacimiento necesario");
                     editFechaNac.requestFocus();
-                } else if (radioGroupRol.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(RegisterActivity.this, "Selecciona el rol correspondiente", Toast.LENGTH_LONG).show();
-                    editRol.setError("Rol necesario");
-                    editRol.requestFocus();
                 } else if (TextUtils.isEmpty(txtPassword)) {
                     Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("Es necesario la contraseña");
@@ -178,7 +166,6 @@ public class RegisterActivity extends AppCompatActivity {
                     editPassword.clearComposingText();
                     editPasswordRepeat.clearComposingText();
                 } else {
-                    txtRol = radioButtonRol.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
 
                     registrarUsuario();
@@ -217,7 +204,6 @@ public class RegisterActivity extends AppCompatActivity {
         Datos.put("nombre", txtNombre);
         Datos.put("apellidos", txtApellidos);
         Datos.put("password", txtPassword);
-        Datos.put("rol", txtRol);
         Datos.put("fecNacimiento" , txtFechaNac);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Usuarios");
@@ -241,6 +227,5 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
-
 }
 ;
