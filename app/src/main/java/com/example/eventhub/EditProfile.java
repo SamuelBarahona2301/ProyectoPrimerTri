@@ -128,7 +128,7 @@ public class EditProfile extends AppCompatActivity {
     private void editarPerfil() {
         String nuevoNombre = editNombre.getText().toString().trim();
         String nuevosApellidos = editApellidos.getText().toString().trim();
-        String nuevaPassword = editPassword.getText().toString().trim();
+        final String nuevaPassword = editPassword.getText().toString().trim();
 
         if (!TextUtils.isEmpty(nuevoNombre) && !TextUtils.isEmpty(nuevosApellidos) && !TextUtils.isEmpty(nuevaPassword)) {
             Map<String, Object> datosActualizados = new HashMap<>();
@@ -140,9 +140,22 @@ public class EditProfile extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(EditProfile.this, "Perfil actualizado exitosamente", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(EditProfile.this, ProfileActivity.class));
-                            finish();
+                            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                            if (currentUser != null) {
+                                currentUser.updatePassword(nuevaPassword)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(EditProfile.this, "Perfil actualizado exitosamente", Toast.LENGTH_SHORT).show();
+                                                    startActivity(new Intent(EditProfile.this, ProfileActivity.class));
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(EditProfile.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            }
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

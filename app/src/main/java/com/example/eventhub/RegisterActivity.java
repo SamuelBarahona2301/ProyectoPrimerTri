@@ -135,53 +135,44 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(txtNombre)) {
-                    Toast.makeText(RegisterActivity.this, "Completa el nombre", Toast.LENGTH_LONG).show();
                     editNombre.setError("Se requiere el nombre");
                     editNombre.requestFocus();
                 } else if (TextUtils.isEmpty(txtApellidos)) {
-                    Toast.makeText(RegisterActivity.this, "Completa los apellidos", Toast.LENGTH_LONG).show();
                     editApellidos.setError("Se requieren los apellidos");
                     editApellidos.requestFocus();
                 } else if (TextUtils.isEmpty(txtMail)) {
-                    Toast.makeText(RegisterActivity.this, "Completa el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren el email");
                     editMail.requestFocus();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(txtMail).matches()) {
-                    Toast.makeText(RegisterActivity.this, "Vuelve a ingresar el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren email correcto");
                     editMail.requestFocus();
                 } else if (TextUtils.isEmpty(txtFechaNac)) {
-                    Toast.makeText(RegisterActivity.this, "Completa el fecha de nacimiento", Toast.LENGTH_LONG).show();
                     editFechaNac.setError("Fecha de nacimiento necesario");
                     editFechaNac.requestFocus();
                 } else if (radioGroupRol.getCheckedRadioButtonId() == -1) {
-                    Toast.makeText(RegisterActivity.this, "Selecciona el rol correspondiente", Toast.LENGTH_LONG).show();
                     editRol.setError("Rol necesario");
                     editRol.requestFocus();
                 } else if (TextUtils.isEmpty(txtPassword)) {
-                    Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("Es necesario la contraseña");
                     editPassword.requestFocus();
                 } else if (txtPassword.length() < 6) {
-                    Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("La contraseña debe tener minimo 6 caracteres");
                     editPassword.requestFocus();
                 } else if (TextUtils.isEmpty(txtPasswordRepeat)) {
-                    Toast.makeText(RegisterActivity.this, "Confirma la contraseña", Toast.LENGTH_LONG).show();
                     editPasswordRepeat.setError("Es necesario confirmar la contraseña");
                     editPasswordRepeat.requestFocus();
                 } else if (!txtPassword.equals(txtPasswordRepeat)) {
-                    Toast.makeText(RegisterActivity.this, "La contraseñas tienen que coincidir", Toast.LENGTH_LONG).show();
                     editPasswordRepeat.setError("Es necesario que coincidan las contraseñas");
                     editPasswordRepeat.requestFocus();
 
                     editPassword.clearComposingText();
                     editPasswordRepeat.clearComposingText();
                 } else {
-                    txtRol = radioButtonRol.getText().toString();
-                    progressBar.setVisibility(View.VISIBLE);
-
-                    registrarUsuario();
+                    if (validarFechaNacimiento()) {
+                        txtRol = radioButtonRol.getText().toString();
+                        progressBar.setVisibility(View.VISIBLE);
+                        registrarUsuario();
+                    }
                 }
             }
         });
@@ -242,5 +233,45 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
+    private boolean validarFechaNacimiento() {
+        boolean isValid = true;
+
+        Calendar fechaNacimiento = obtenerFechaSeleccionada(editFechaNac.getText().toString());
+        if (fechaNacimiento == null) {
+            Toast.makeText(RegisterActivity.this, "Fecha de nacimiento inválida", Toast.LENGTH_LONG).show();
+            isValid = false;
+        } else {
+            // Calcular la edad
+            Calendar hoy = Calendar.getInstance();
+            int edad = hoy.get(Calendar.YEAR) - fechaNacimiento.get(Calendar.YEAR);
+            if (hoy.get(Calendar.MONTH) < fechaNacimiento.get(Calendar.MONTH) ||
+                    (hoy.get(Calendar.MONTH) == fechaNacimiento.get(Calendar.MONTH) &&
+                            hoy.get(Calendar.DAY_OF_MONTH) < fechaNacimiento.get(Calendar.DAY_OF_MONTH))) {
+                edad--;
+            }
+
+            int edadMinima = txtRol.equals("Cliente") ? 16 : 18;
+            if (edad < edadMinima) {
+                String mensaje = txtRol.equals("Cliente") ? "Debe tener al menos 16 años para registrarse como cliente" :
+                        "Debe tener al menos 18 años para registrarse como organizador de eventos";
+                Toast.makeText(RegisterActivity.this, mensaje, Toast.LENGTH_LONG).show();
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+
+    private Calendar obtenerFechaSeleccionada(String fecha) {
+        try {
+            String[] partes = fecha.split("/");
+            int dia = Integer.parseInt(partes[0]);
+            int mes = Integer.parseInt(partes[1]) - 1; // Restar 1 porque los meses en Calendar comienzan desde 0
+            int anio = Integer.parseInt(partes[2]);
+            return new GregorianCalendar(anio, mes, dia);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
-;
