@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Por favor, introduce tu correo electrónico y contraseña.", Toast.LENGTH_SHORT).show();
                 } else {
                     iniciarSesion(email, contraseña);
-                    startActivity(new Intent(LoginActivity.this, MainPage.class));
                 }
             }
         });
@@ -71,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.",
                                     Toast.LENGTH_SHORT).show();
                             finish();
-                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this, MainPage.class));
                         } else {
                             Toast.makeText(LoginActivity.this, "Fallo en el inicio de sesión.",
                                     Toast.LENGTH_SHORT).show();
