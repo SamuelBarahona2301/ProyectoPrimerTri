@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Button btnCerrarSesion, btnEliminarCuenta;
+    Button btnCerrarSesion, btnEditPerfil;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
@@ -49,10 +49,10 @@ public class ProfileActivity extends AppCompatActivity {
         textApellidos = findViewById(R.id.textApellidos);
         textRol = findViewById(R.id.txtRol);
         textFechaNac = findViewById(R.id.txtFechaNac);
+        btnEditPerfil = findViewById(R.id.editPerfil);
 
         usuarios = FirebaseDatabase.getInstance().getReference("Usuarios");
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
-        btnEliminarCuenta = findViewById(R.id.btnEliminarCuenta);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
         btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +62,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        btnEliminarCuenta.setOnClickListener(new View.OnClickListener() {
+        btnEditPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eliminarCuenta(user.getUid());
+                startActivity(new Intent(ProfileActivity.this, EditProfile.class));
             }
         });
     }
@@ -102,7 +102,6 @@ public class ProfileActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -111,33 +110,6 @@ public class ProfileActivity extends AppCompatActivity {
         firebaseAuth.signOut();
         startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
         Toast.makeText(this, "Se cerro sesión exitosamente", Toast.LENGTH_SHORT).show();
-    }
-
-    private void eliminarCuenta(final String usuarioId){
-        usuarios.child(usuarioId).removeValue(new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@NonNull DatabaseError error, @NonNull DatabaseReference ref) {
-                if (error == null) {
-                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    if (user != null) {
-                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(ProfileActivity.this, "Usuario eliminado exitosamente", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
-                                    finish();
-                                } else {
-                                    Toast.makeText(ProfileActivity.this, "Error al eliminar el usuario de la autenticación", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
-                } else {
-                    Toast.makeText(ProfileActivity.this, "Error al eliminar el usuario de la base de datos", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
 }

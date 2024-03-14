@@ -121,7 +121,7 @@
                         android:textAlignment="viewStart" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button4"
+                        android:id="@+id/editPerfil"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginStart="32dp"
@@ -152,21 +152,6 @@
                         android:textStyle="bold"
                         android:textSize="18sp"/>
 
-                    <Button
-                        android:id="@+id/btnEliminarCuenta"
-                        style="@android:style/Widget.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="32dp"
-                        android:background="@drawable/btn_background_3"
-                        android:backgroundTint="@color/red"
-                        android:backgroundTintMode="add"
-                        android:text="Eliminar Cuenta"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
