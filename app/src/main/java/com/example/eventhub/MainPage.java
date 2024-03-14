@@ -1,20 +1,17 @@
 package com.example.eventhub;
 
-import android.content.Intent;
 import android.os.Bundle;
-
+import android.view.View;
+import android.view.Menu;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
-
-import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.eventhub.databinding.ActivityMainPageBinding;
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 public class MainPage extends AppCompatActivity {
 
@@ -24,43 +21,35 @@ private ActivityMainPageBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainPageBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
+     binding = ActivityMainPageBinding.inflate(getLayoutInflater());
+     setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMainPage.toolbar);
-        AtomicReference<DrawerLayout> drawer = new AtomicReference<>(binding.drawerLayout);
+        DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-
-        // Configuración inicial del AppBarConfiguration y NavController omitida...
-
-        // Añadir el listener de selección de items aquí
-        navigationView.setNavigationItemSelectedListener(item -> {
-            // Handle navigation view item clicks here.
-            int id = item.getItemId();
-
-            if (id == R.id.nav_home) {
-                // Aquí puedes manejar la acción de volver al "Home". Si ya estás usando un NavController,
-                // puede que sólo necesites hacer popBackStack hasta el destino de inicio, o navegar hacia él.
-                NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_page);
-                navController.navigate(R.id.nav_home);
-            } else if (id == R.id.nav_perfil) {
-                // Navegar hacia ProfileActivity
-                Intent intent = new Intent(MainPage.this, ProfileActivity.class);
-                startActivity(intent);
-            } else if (id == R.id.nav_logout) {
-                // Manejar el cierre de sesión
-                FirebaseAuth.getInstance().signOut();
-                // Navegar de vuelta a LoginActivity
-                Intent intent = new Intent(MainPage.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-
-            // Cerrar el drawer
-            drawer.set(findViewById(R.id.drawer_layout));
-            drawer.get().closeDrawer(GravityCompat.START);
-            return true;
-        });
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                .setOpenableLayout(drawer)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_page);
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_page, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_page);
+        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
 }
