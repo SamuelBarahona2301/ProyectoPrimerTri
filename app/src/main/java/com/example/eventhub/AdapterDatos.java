@@ -29,9 +29,6 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
     public void onBindViewHolder(@NonNull AdapterDatos.ViewHolderDatos holder, int position) {
         holder.nombre.setText(listDatos.get(position).getNombre());
         holder.descripcion.setText(listDatos.get(position).getDescripcion());
-        holder.fecha.setText(listDatos.get(position).getFecha());
-        holder.lugar.setText(listDatos.get(position).getLugar());
-        holder.hora.setText(listDatos.get(position).getHora());
         holder.foto.setImageResource(listDatos.get(position).getFoto());
     }
 
@@ -47,9 +44,6 @@ public class AdapterDatos extends RecyclerView.Adapter<AdapterDatos.ViewHolderDa
             super(itemView);
             nombre = itemView.findViewById(R.id.txtNombre);
             descripcion = itemView.findViewById(R.id.txtDescripcion);
-            fecha = itemView.findViewById(R.id.txtFecha);
-            lugar = itemView.findViewById(R.id.txtLugar);
-            hora = itemView.findViewById(R.id.txtHora);
             foto = itemView.findViewById(R.id.idImagen);
         }
     }
