@@ -127,39 +127,30 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(txtNombre)) {
-                    Toast.makeText(RegisterActivity.this, "Completa el nombre", Toast.LENGTH_LONG).show();
                     editNombre.setError("Se requiere el nombre");
                     editNombre.requestFocus();
                 } else if (TextUtils.isEmpty(txtApellidos)) {
-                    Toast.makeText(RegisterActivity.this, "Completa los apellidos", Toast.LENGTH_LONG).show();
                     editApellidos.setError("Se requieren los apellidos");
                     editApellidos.requestFocus();
                 } else if (TextUtils.isEmpty(txtMail)) {
-                    Toast.makeText(RegisterActivity.this, "Completa el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren el email");
                     editMail.requestFocus();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(txtMail).matches()) {
-                    Toast.makeText(RegisterActivity.this, "Vuelve a ingresar el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren email correcto");
                     editMail.requestFocus();
                 } else if (TextUtils.isEmpty(txtFechaNac)) {
-                    Toast.makeText(RegisterActivity.this, "Completa el fecha de nacimiento", Toast.LENGTH_LONG).show();
                     editFechaNac.setError("Fecha de nacimiento necesario");
                     editFechaNac.requestFocus();
                 } else if (TextUtils.isEmpty(txtPassword)) {
-                    Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("Es necesario la contraseña");
                     editPassword.requestFocus();
                 } else if (txtPassword.length() < 6) {
-                    Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("La contraseña debe tener minimo 6 caracteres");
                     editPassword.requestFocus();
                 } else if (TextUtils.isEmpty(txtPasswordRepeat)) {
-                    Toast.makeText(RegisterActivity.this, "Confirma la contraseña", Toast.LENGTH_LONG).show();
                     editPasswordRepeat.setError("Es necesario confirmar la contraseña");
                     editPasswordRepeat.requestFocus();
                 } else if (!txtPassword.equals(txtPasswordRepeat)) {
-                    Toast.makeText(RegisterActivity.this, "La contraseñas tienen que coincidir", Toast.LENGTH_LONG).show();
                     editPasswordRepeat.setError("Es necesario que coincidan las contraseñas");
                     editPasswordRepeat.requestFocus();
 
