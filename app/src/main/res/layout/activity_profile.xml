@@ -20,19 +20,20 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="414dp"
+                    android:layout_height="265dp"
                     android:scaleType="fitXY"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/top_background" />
+                    app:srcCompat="@drawable/fondo" />
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
+                    android:layout_marginTop="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/imageView"
@@ -43,11 +44,23 @@
                     android:id="@+id/textNombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textSize="25sp"
+                    android:layout_marginTop="42dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
+                <TextView
+                    android:id="@+id/textApellidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="68dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="@+id/imageView2"
+                    app:layout_constraintHorizontal_bias="0.495"
                     app:layout_constraintStart_toStartOf="@+id/imageView2"
                     app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -55,10 +68,11 @@
                     android:id="@+id/txtCorreo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="@+id/textNombre"
-                    app:layout_constraintStart_toStartOf="@+id/textNombre"
+                    android:layout_marginTop="36dp"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textNombre" />
 
                 <LinearLayout
@@ -71,7 +85,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtCorreo">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button"
+                        android:id="@+id/txtRol"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginStart="32dp"
@@ -79,17 +93,17 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/ic_1"
+                        android:drawableStart="@drawable/rol"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Ajustes"
+                        android:text=""
                         android:textSize="18sp"
                         android:textStyle="bold"
                         style="@android:style/Widget.Button"
                         android:textAlignment="viewStart" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button2"
+                        android:id="@+id/txtFechaNac"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginStart="32dp"
@@ -100,10 +114,10 @@
                         style="@android:style/Widget.Button"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/ic_2"
+                        android:drawableStart="@drawable/calendar"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Editar perfil"
+                        android:text=""
                         android:textAlignment="viewStart" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -118,13 +132,13 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/ic_4"
+                        android:drawableStart="@drawable/edit_profile"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Notificaciones"
+                        android:text="Editar perfil"
                         android:textAlignment="viewStart" />
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <Button
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         style="@android:style/Widget.Button"
@@ -137,8 +151,25 @@
                         android:textColor="#ffffff"
                         android:textStyle="bold"
                         android:textSize="18sp"/>
+
+                    <Button
+                        android:id="@+id/btnEliminarCuenta"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="32dp"
+                        android:background="@drawable/btn_background_3"
+                        android:backgroundTint="@color/red"
+                        android:backgroundTintMode="add"
+                        android:text="Eliminar Cuenta"
+                        android:textColor="#ffffff"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

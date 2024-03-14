@@ -33,11 +33,12 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    TextView textNombre, textApellidos, textViewDOB, textViewPassword, textCorreo, textRol;
+    TextView textNombre, textApellidos, textFechaNac, textCorreo, textRol;
 
     DatabaseReference usuarios;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +47,8 @@ public class ProfileActivity extends AppCompatActivity {
         textNombre = findViewById(R.id.textNombre);
         textCorreo = findViewById(R.id.txtCorreo);
         textApellidos = findViewById(R.id.textApellidos);
-        /*
-        textViewDOB = findViewById(R.id.textViewDOB);
-        textViewPassword = findViewById(R.id.textViewPassword);
-        textRol = findViewById(R.id.textRole);*/
+        textRol = findViewById(R.id.txtRol);
+        textFechaNac = findViewById(R.id.txtFechaNac);
 
         usuarios = FirebaseDatabase.getInstance().getReference("Usuarios");
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
@@ -79,31 +78,23 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void comprobarIniciosesion() {
         if (user != null) {
-            CargaDeDatos();
+            cargaDeDatos();
         } else {
             startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
             finish();
         }
     }
 
-    private void CargaDeDatos() {
+    private void cargaDeDatos() {
         usuarios.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    /*String fecNac = "Fecha de Nacimiento: " + snapshot.child("fecNacimiento").getValue();
-                    String rol = "Rol: " + snapshot.child("rol").getValue();
-                    String password = "Password: " + snapshot.child("password").getValue();
-
-
-                    textViewLastName.setText(apellidos);
-
-                    textViewDOB.setText(fecNac);
-                    textRol.setText(rol);
-                    textViewPassword.setText(password);*/
                     textNombre.setText((CharSequence) snapshot.child("nombre").getValue());
                     textApellidos.setText((CharSequence) snapshot.child("apellidos").getValue());
                     textCorreo.setText((CharSequence) snapshot.child("correo").getValue());
+                    textRol.setText((CharSequence) snapshot.child("rol").getValue());
+                    textFechaNac.setText((CharSequence) snapshot.child("fecNacimiento").getValue());
 
                 }
 
@@ -123,32 +114,26 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void eliminarCuenta(final String usuarioId){
-        // Eliminar usuario de la base de datos en tiempo real
         usuarios.child(usuarioId).removeValue(new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@NonNull DatabaseError error, @NonNull DatabaseReference ref) {
                 if (error == null) {
-                    // Éxito al eliminar de la base de datos
-                    // Ahora elimina el usuario de la autenticación en Firebase
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     if (user != null) {
                         user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    // Éxito al eliminar el usuario de la autenticación
                                     Toast.makeText(ProfileActivity.this, "Usuario eliminado exitosamente", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
                                     finish();
                                 } else {
-                                    // Error al eliminar el usuario de la autenticación
                                     Toast.makeText(ProfileActivity.this, "Error al eliminar el usuario de la autenticación", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
                     }
                 } else {
-                    // Error al eliminar de la base de datos
                     Toast.makeText(ProfileActivity.this, "Error al eliminar el usuario de la base de datos", Toast.LENGTH_SHORT).show();
                 }
             }
