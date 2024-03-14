@@ -64,6 +64,14 @@
 
             <!-- Contraseña -->
             <TextView
+                android:id="@+id/textRole"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:text="Rol:"
+                android:textSize="18sp" />
+
+            <TextView
                 android:id="@+id/textViewPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

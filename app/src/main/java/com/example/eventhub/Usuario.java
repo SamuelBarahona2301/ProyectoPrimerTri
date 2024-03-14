@@ -1,15 +1,16 @@
 package com.example.eventhub;
 
 public class Usuario {
-    public static String userId, nombre, apellidos, fechaNac;
+    public static String userId, nombre, apellidos, rol, fechaNac;
 
     public Usuario() {
     }
 
-    public Usuario(String id, String nombre, String apellidos, String fechaNac) {
+    public Usuario(String id, String nombre, String apellidos, String rol, String fechaNac) {
         this.nombre = nombre;
         this.userId = id;
         this.apellidos = apellidos;
+        this.rol = rol;
         this.fechaNac = fechaNac;
     }
 
@@ -35,6 +36,14 @@ public class Usuario {
 
     public static void setApellidos(String apellidos) {
         Usuario.apellidos = apellidos;
+    }
+
+    public static String getRol() {
+        return rol;
+    }
+
+    public static void setRol(String rol) {
+        Usuario.rol = rol;
     }
 
     public static String getFechaNac() {

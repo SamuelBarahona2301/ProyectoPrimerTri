@@ -50,10 +50,12 @@ public class RegisterActivity extends AppCompatActivity {
     Usuario usuario;
 
     private EditText editNombre, editFechaNac, editApellidos,
-            editPassword, editPasswordRepeat, editMail;
+            editRol, editPassword, editPasswordRepeat, editMail;
     private ProgressBar progressBar;
+    private RadioGroup radioGroupRol;
+    private RadioButton radioButtonRol;
 
-    private String txtNombre, txtFechaNac, txtApellidos, txtPassword, txtPasswordRepeat, txtMail;
+    private String txtNombre, txtFechaNac, txtApellidos, txtRol, txtPassword, txtPasswordRepeat, txtMail;
 
     private DatePickerDialog picker;
 
@@ -87,6 +89,10 @@ public class RegisterActivity extends AppCompatActivity {
         tengoCuenta = findViewById(R.id.txtTengoCuenta);
 
 
+        // Radiobutton
+        radioGroupRol = findViewById(R.id.rdbtnRol);
+        radioGroupRol.clearCheck();
+
         tengoCuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +123,8 @@ public class RegisterActivity extends AppCompatActivity {
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int seleccionar = radioGroupRol.getCheckedRadioButtonId();
+                radioButtonRol = findViewById(seleccionar);
 
                 txtNombre = editNombre.getText().toString();
                 txtApellidos = editApellidos.getText().toString();
@@ -127,36 +135,50 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 if (TextUtils.isEmpty(txtNombre)) {
+                    Toast.makeText(RegisterActivity.this, "Completa el nombre", Toast.LENGTH_LONG).show();
                     editNombre.setError("Se requiere el nombre");
                     editNombre.requestFocus();
                 } else if (TextUtils.isEmpty(txtApellidos)) {
+                    Toast.makeText(RegisterActivity.this, "Completa los apellidos", Toast.LENGTH_LONG).show();
                     editApellidos.setError("Se requieren los apellidos");
                     editApellidos.requestFocus();
                 } else if (TextUtils.isEmpty(txtMail)) {
+                    Toast.makeText(RegisterActivity.this, "Completa el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren el email");
                     editMail.requestFocus();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(txtMail).matches()) {
+                    Toast.makeText(RegisterActivity.this, "Vuelve a ingresar el email", Toast.LENGTH_LONG).show();
                     editMail.setError("Se requieren email correcto");
                     editMail.requestFocus();
                 } else if (TextUtils.isEmpty(txtFechaNac)) {
+                    Toast.makeText(RegisterActivity.this, "Completa el fecha de nacimiento", Toast.LENGTH_LONG).show();
                     editFechaNac.setError("Fecha de nacimiento necesario");
                     editFechaNac.requestFocus();
+                } else if (radioGroupRol.getCheckedRadioButtonId() == -1) {
+                    Toast.makeText(RegisterActivity.this, "Selecciona el rol correspondiente", Toast.LENGTH_LONG).show();
+                    editRol.setError("Rol necesario");
+                    editRol.requestFocus();
                 } else if (TextUtils.isEmpty(txtPassword)) {
+                    Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("Es necesario la contraseña");
                     editPassword.requestFocus();
                 } else if (txtPassword.length() < 6) {
+                    Toast.makeText(RegisterActivity.this, "Completa la contraseña", Toast.LENGTH_LONG).show();
                     editPassword.setError("La contraseña debe tener minimo 6 caracteres");
                     editPassword.requestFocus();
                 } else if (TextUtils.isEmpty(txtPasswordRepeat)) {
+                    Toast.makeText(RegisterActivity.this, "Confirma la contraseña", Toast.LENGTH_LONG).show();
                     editPasswordRepeat.setError("Es necesario confirmar la contraseña");
                     editPasswordRepeat.requestFocus();
                 } else if (!txtPassword.equals(txtPasswordRepeat)) {
+                    Toast.makeText(RegisterActivity.this, "La contraseñas tienen que coincidir", Toast.LENGTH_LONG).show();
                     editPasswordRepeat.setError("Es necesario que coincidan las contraseñas");
                     editPasswordRepeat.requestFocus();
 
                     editPassword.clearComposingText();
                     editPasswordRepeat.clearComposingText();
                 } else {
+                    txtRol = radioButtonRol.getText().toString();
                     progressBar.setVisibility(View.VISIBLE);
 
                     registrarUsuario();
@@ -195,6 +217,7 @@ public class RegisterActivity extends AppCompatActivity {
         Datos.put("nombre", txtNombre);
         Datos.put("apellidos", txtApellidos);
         Datos.put("password", txtPassword);
+        Datos.put("rol", txtRol);
         Datos.put("fecNacimiento" , txtFechaNac);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Usuarios");
@@ -218,5 +241,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }
 ;
