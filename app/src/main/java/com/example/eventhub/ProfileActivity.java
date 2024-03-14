@@ -25,11 +25,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Button buttonLogout;
+    Button btnCerrarSesion;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    TextView textViewFirstName, textViewLastName, textViewDOB, textViewPassword, textCorreo, textRol;
+    TextView textNombre, textViewLastName, textViewDOB, textViewPassword, textCorreo, textRol;
 
     DatabaseReference Usuarios;
 
@@ -39,18 +39,18 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        textViewFirstName = findViewById(R.id.textViewFirstName);
-        textViewLastName = findViewById(R.id.textViewLastName);
-        textCorreo = findViewById(R.id.textCorreo);
+        textNombre = findViewById(R.id.textNombre);
+        /*textViewLastName = findViewById(R.id.textViewLastName);
+        textCorreo = findViewById(R.id.txtCorreo);
         textViewDOB = findViewById(R.id.textViewDOB);
         textViewPassword = findViewById(R.id.textViewPassword);
-        textRol = findViewById(R.id.textRole);
+        textRol = findViewById(R.id.textRole);*/
 
         Usuarios = FirebaseDatabase.getInstance().getReference("Usuarios");
-        buttonLogout = findViewById(R.id.buttonLogout);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-        buttonLogout.setOnClickListener(new View.OnClickListener() {
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cerrarSesion();
@@ -80,14 +80,14 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    String nombres = "Nombre: " + snapshot.child("nombre").getValue();
+                    String nombres = "" + snapshot.child("nombre").getValue();
                     String correo = "Correo: " + snapshot.child("correo").getValue();
                     String apellidos = "Apellidos: " + snapshot.child("apellidos").getValue();
                     String fecNac = "Fecha de Nacimiento: " + snapshot.child("fecNacimiento").getValue();
                     String rol = "Rol: " + snapshot.child("rol").getValue();
                     String password = "Password: " + snapshot.child("password").getValue();
 
-                    textViewFirstName.setText(nombres);
+                    textNombre.setText(nombres);
                     textViewLastName.setText(apellidos);
                     textCorreo.setText(correo);
                     textViewDOB.setText(fecNac);
