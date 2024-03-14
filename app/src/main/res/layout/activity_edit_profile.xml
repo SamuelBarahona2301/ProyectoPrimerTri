@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".EditProfile">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -41,30 +41,6 @@
                     app:srcCompat="@drawable/perfil" />
 
                 <TextView
-                    android:id="@+id/textNombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="42dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-                <TextView
-                    android:id="@+id/textApellidos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="68dp"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                    app:layout_constraintHorizontal_bias="0.495"
-                    app:layout_constraintStart_toStartOf="@+id/imageView2"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
-                <TextView
                     android:id="@+id/txtCorreo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,7 +49,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textNombre" />
+                    app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -84,8 +60,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txtCorreo">
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button"
+                    <EditText
+                        android:id="@+id/editNombre"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginStart="32dp"
@@ -93,17 +69,16 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/ic_1"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Ajustes"
+                        android:text="Nombre"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         style="@android:style/Widget.Button"
                         android:textAlignment="viewStart" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button2"
+                        android:id="@+id/editApellidos"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginStart="32dp"
@@ -114,14 +89,13 @@
                         style="@android:style/Widget.Button"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/ic_2"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Editar perfil"
+                        android:text="Apellidos"
                         android:textAlignment="viewStart" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/button4"
+                        android:id="@+id/editPassword"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginStart="32dp"
@@ -132,10 +106,9 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginBottom="10dp"
                         android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/ic_4"
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
-                        android:text="Notificaciones"
+                        android:text="Contraseña"
                         android:textAlignment="viewStart" />
 
                     <Button
@@ -146,31 +119,14 @@
                         android:layout_marginEnd="32dp"
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="16dp"
-                        android:text="Cerrar Sesion"
+                        android:text="Editar perfil"
                         android:id="@+id/btnCerrarSesion"
                         android:textColor="#ffffff"
                         android:textStyle="bold"
                         android:textSize="18sp"/>
-
-                    <Button
-                        android:id="@+id/btnEliminarCuenta"
-                        style="@android:style/Widget.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="32dp"
-                        android:background="@drawable/btn_background_3"
-                        android:backgroundTint="@color/red"
-                        android:backgroundTintMode="add"
-                        android:text="Eliminar Cuenta"
-                        android:textColor="#ffffff"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
