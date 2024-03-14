@@ -29,19 +29,20 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
-    TextView textNombre, textViewLastName, textViewDOB, textViewPassword, textCorreo, textRol;
+    TextView textNombre, textApellidos, textViewDOB, textViewPassword, textCorreo, textRol;
 
     DatabaseReference Usuarios;
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         textNombre = findViewById(R.id.textNombre);
-        /*textViewLastName = findViewById(R.id.textViewLastName);
         textCorreo = findViewById(R.id.txtCorreo);
+        textApellidos = findViewById(R.id.textApellidos);
+        /*
         textViewDOB = findViewById(R.id.textViewDOB);
         textViewPassword = findViewById(R.id.textViewPassword);
         textRol = findViewById(R.id.textRole);*/
@@ -80,19 +81,19 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    String nombres = "" + snapshot.child("nombre").getValue();
-                    String correo = "Correo: " + snapshot.child("correo").getValue();
-                    String apellidos = "Apellidos: " + snapshot.child("apellidos").getValue();
-                    String fecNac = "Fecha de Nacimiento: " + snapshot.child("fecNacimiento").getValue();
+                    /*String fecNac = "Fecha de Nacimiento: " + snapshot.child("fecNacimiento").getValue();
                     String rol = "Rol: " + snapshot.child("rol").getValue();
                     String password = "Password: " + snapshot.child("password").getValue();
 
-                    textNombre.setText(nombres);
+
                     textViewLastName.setText(apellidos);
-                    textCorreo.setText(correo);
+
                     textViewDOB.setText(fecNac);
                     textRol.setText(rol);
-                    textViewPassword.setText(password);
+                    textViewPassword.setText(password);*/
+                    textNombre.setText((CharSequence) snapshot.child("nombre").getValue());
+                    textApellidos.setText((CharSequence) snapshot.child("apellidos").getValue());
+                    textCorreo.setText((CharSequence) snapshot.child("correo").getValue());
 
                 }
 
