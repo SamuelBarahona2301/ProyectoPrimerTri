@@ -109,6 +109,7 @@
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
                         android:text="Contraseña"
+                        android:inputType="textPassword"
                         android:textAlignment="viewStart" />
 
                     <Button
