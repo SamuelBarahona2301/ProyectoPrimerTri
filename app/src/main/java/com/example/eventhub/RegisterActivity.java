@@ -172,7 +172,12 @@ public class RegisterActivity extends AppCompatActivity {
                         txtRol = radioButtonRol.getText().toString();
                         progressBar.setVisibility(View.VISIBLE);
                         registrarUsuario();
+                    } else {
+                        // Mostrar mensaje de error y limpiar campo de fecha de nacimiento
+                        Toast.makeText(RegisterActivity.this, "Ingrese una fecha de nacimiento válida", Toast.LENGTH_LONG).show();
+                        editFechaNac.setText("");
                     }
+
                 }
             }
         });
