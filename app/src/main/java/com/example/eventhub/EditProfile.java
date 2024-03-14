@@ -131,7 +131,6 @@ public class EditProfile extends AppCompatActivity {
         String nuevaPassword = editPassword.getText().toString().trim();
 
         if (!TextUtils.isEmpty(nuevoNombre) && !TextUtils.isEmpty(nuevosApellidos) && !TextUtils.isEmpty(nuevaPassword)) {
-            // Actualizar los datos en la base de datos de Firebase
             Map<String, Object> datosActualizados = new HashMap<>();
             datosActualizados.put("nombre", nuevoNombre);
             datosActualizados.put("apellidos", nuevosApellidos);
@@ -142,6 +141,8 @@ public class EditProfile extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(EditProfile.this, "Perfil actualizado exitosamente", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(EditProfile.this, ProfileActivity.class));
+                            finish();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
