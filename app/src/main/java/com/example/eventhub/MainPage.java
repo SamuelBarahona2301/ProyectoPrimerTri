@@ -60,11 +60,11 @@ private ActivityMainPageBinding binding;
     }
 
     private void llenarEventos() {
-        listaDatos.add(new Evento(R.drawable.concierto, "Concierto en Vivo: Artista XYZ", "Disfruta de un concierto en vivo del reconocido artista XYZ. Un espectáculo lleno de energía y emoción", "Teatro Municipal", "20-07-2024", "20:00"));
-        listaDatos.add(new Evento(R.drawable.arte, "Exposición de Arte Moderno", "Explora las últimas obras de artistas contemporáneos en esta emocionante exposición de arte moderno.", "Galería de Arte Contemporáneo", "25-03-2024", "10:00"));
-        listaDatos.add(new Evento(R.drawable.gastronomia, "Festival de Comida Internacional", "¡Descubre una amplia variedad de delicias culinarias de todo el mundo en este festival gastronómico!", "Plaza Principal", "02-04-2024", "18:00"));
-        listaDatos.add(new Evento(R.drawable.teatro, "Presentación de Teatro Clásico: 'Romeo y Julieta'", "Revive la historia de amor más famosa de todos los tiempos con esta emocionante presentación de 'Romeo y Julieta'.", "Teatro Nacional", "10-04-2024", "19:30"));
-        listaDatos.add(new Evento(R.drawable.libros, "Feria de Libros y Lectura", "Explora una amplia selección de libros de diferentes géneros y participa en sesiones de lectura y charlas con autores destacados.", "Parque Retiro", "15-04-2024", "11:00"));
+        listaDatos.add(new Evento(R.drawable.concierto, "Concierto en Vivo: Artista XYZ", "Concierto en vivo del reconocido artista XYZ. Un espectáculo lleno de energía y emoción", "Teatro Municipal", "20-07-2024", "20:00"));
+        listaDatos.add(new Evento(R.drawable.arte, "Exposición de Arte Moderno", "Obras de artistas contemporáneos en esta emocionante exposición de arte moderno.", "Galería de Arte Contemporáneo", "25-03-2024", "10:00"));
+        listaDatos.add(new Evento(R.drawable.gastronomia, "Festival de Comida Internacional", "Amplia variedad de delicias culinarias de todo el mundo en este festival gastronómico", "Plaza Principal", "02-04-2024", "18:00"));
+        listaDatos.add(new Evento(R.drawable.teatro, "Presentación de Teatro Clásico: 'Romeo y Julieta'", "Revive la historia de amor más famosa de todos los tiempos con esta emocionante presentación", "Teatro Nacional", "10-04-2024", "19:30"));
+        listaDatos.add(new Evento(R.drawable.libros, "Feria de Libros y Lectura", "Amplia selección de libros de diferentes géneros y participa en sesiones de lectura y charlas con autores destacados.", "Parque Retiro", "15-04-2024", "11:00"));
         listaDatos.add(new Evento(R.drawable.magia, "Espectáculo de Magia: Ilusionista Max", "Déjate sorprender por los trucos y la magia del ilusionista Max en este espectáculo lleno de misterio y diversión.", "Auditorio Municipal", "15-06-2024", "20:00"));
     }
 
