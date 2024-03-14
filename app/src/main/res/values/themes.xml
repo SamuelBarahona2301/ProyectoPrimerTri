@@ -16,4 +16,10 @@
     </style>
 
     <style name="Theme.Eventhub" parent="Base.Theme.Eventhub" />
+    <style name="Theme.Eventhub.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.Eventhub.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Eventhub.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
