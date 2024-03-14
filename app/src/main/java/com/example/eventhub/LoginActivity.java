@@ -42,13 +42,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = etEmail.getText().toString();
                 String contraseña = etContraseña.getText().toString();
-                Intent mainPage = new Intent(getApplicationContext(), MainActivity.class);
 
                 if(email.isEmpty() || contraseña.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Por favor, introduce tu correo electrónico y contraseña.", Toast.LENGTH_SHORT).show();
                 } else {
                     iniciarSesion(email, contraseña);
-                    startActivity(mainPage);
+                    startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
                 }
             }
         });
@@ -71,7 +70,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Inicio de sesión exitoso.",
                                     Toast.LENGTH_SHORT).show();
-
+                            finish();
+                            startActivity(new Intent(LoginActivity.this, ProfileActivity.class));
                         } else {
                             Toast.makeText(LoginActivity.this, "Fallo en el inicio de sesión.",
                                     Toast.LENGTH_SHORT).show();
