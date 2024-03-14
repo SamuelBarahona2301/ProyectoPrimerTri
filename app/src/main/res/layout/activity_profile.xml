@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity"
-    android:background="@color/color_principal">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:layout_margin="15dp"
-        android:background="@color/white">
+    tools:context=".ProfileActivity">
 
         <!-- Encabezado -->
         <TextView
@@ -99,7 +91,15 @@
                 android:text="Cerrar Sesión"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
-        </LinearLayout>
-    </RelativeLayout>
 
-</ScrollView>
+            <Button
+                android:id="@+id/buttonEliminar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/red"
+                android:text="Eliminar cuenta"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+</RelativeLayout>
