@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import androidx.navigation.NavController;
@@ -54,11 +56,14 @@ private ActivityMainPageBinding binding;
         logoutMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                // Cerrar sesión de Firebase Authentication
-                FirebaseAuth.getInstance().signOut();
-                // Navegar de vuelta a la actividad de inicio de sesión o donde desees
-                startActivity(new Intent(MainPage.this, LoginActivity.class));
-                finish(); // Finalizar la actividad actual
+                try {
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(MainPage.this, "Sesión cerrada correctamente", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainPage.this, LoginActivity.class));
+                    finish();
+                } catch (Exception e) {
+                    Toast.makeText(MainPage.this, "Error al cerrar sesión: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
                 return true;
             }
         });
