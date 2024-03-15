@@ -1,6 +1,8 @@
 package com.example.eventhub;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import com.google.android.material.snackbar.Snackbar;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.eventhub.databinding.ActivityMainPageBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -38,19 +41,30 @@ private ActivityMainPageBinding binding;
         setSupportActionBar(binding.appBarMainPage.toolbar);
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_perfil)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_perfil, R.id.nav_logout)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main_page);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        MenuItem logoutMenuItem = navigationView.getMenu().findItem(R.id.nav_logout);
+
+        logoutMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // Cerrar sesión de Firebase Authentication
+                FirebaseAuth.getInstance().signOut();
+                // Navegar de vuelta a la actividad de inicio de sesión o donde desees
+                startActivity(new Intent(MainPage.this, LoginActivity.class));
+                finish(); // Finalizar la actividad actual
+                return true;
+            }
+        });
+
         listaDatos = new ArrayList<>();
         recycler = findViewById(R.id.recylcerId);
-        // recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recycler.setLayoutManager(new GridLayoutManager(this, 2));
 
         llenarEventos();
