@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileActivity extends AppCompatActivity {
 
     Button btnCerrarSesion, btnEditPerfil;
+    ImageButton btnVolver;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
 
@@ -38,7 +40,8 @@ public class ProfileActivity extends AppCompatActivity {
     DatabaseReference usuarios;
 
 
-    @SuppressLint("MissingInflatedId")
+
+    @SuppressLint("WrongViewCast")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
         textRol = findViewById(R.id.txtRol);
         textFechaNac = findViewById(R.id.txtFechaNac);
         btnEditPerfil = findViewById(R.id.editPerfil);
+        btnVolver = findViewById(R.id.btnBack);
 
         usuarios = FirebaseDatabase.getInstance().getReference("Usuarios");
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
@@ -68,6 +72,15 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this, EditProfile.class));
             }
         });
+
+        btnVolver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, MainPage.class));
+            }
+        });
+
+
     }
 
     @Override
