@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_slideshow" />
 
     <activity
-        android:id="@+id/nav_profile"
+        android:id="@+id/nav_perfil"
         android:name="com.example.eventhub.ProfileActivity"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/activity_profile" />
